@@ -14,7 +14,8 @@ async def healthcheck() -> dict[str, str]:
 
 @router.post("/waf")
 async def solve_waf(payload: WafSolveRequest):
-    result = await get_waf_cookie(domain=payload.domain)
+    # print(payload)
+    result = await get_waf_cookie(payload)
     if not result:
         return JSONResponse(
             status_code=502,
@@ -31,5 +32,6 @@ async def solve_waf(payload: WafSolveRequest):
         "domain": payload.domain,
         "cf_clearance": cookie,
         "user_agent": user_agent,
+        "proxy": payload.proxy if payload.proxy is not None else None,
     }
 
