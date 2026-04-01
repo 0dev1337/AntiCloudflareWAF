@@ -21,7 +21,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
             response = await call_next(request)
         except Exception as exc:
             elapsed_ms = (perf_counter() - start_time) * 1000
-            logger.error(
+            logger.debug(
                 "request_failed method=%s path=%s client=%s duration_ms=%.2f error=%s",
                 method,
                 path,
@@ -32,7 +32,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
             raise
 
         elapsed_ms = (perf_counter() - start_time) * 1000
-        logger.info(
+        logger.debug(
             "request_completed method=%s path=%s status=%s client=%s duration_ms=%.2f",
             method,
             path,

@@ -40,7 +40,7 @@ async def get_waf_cookie(request: WafSolveRequest) -> tuple[str, str] | None:
             await page.goto(request.domain, wait_until="networkidle", timeout=30 * MULTIPLIER)
 
             if await page.title() == "Just a moment...":
-                logger.debug(
+                logger.warning(
                     "(Detected) - Cloudflare - JS/Captcha for domain: %s", request.domain
                 )
 
